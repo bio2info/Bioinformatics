@@ -127,13 +127,6 @@ plot(X[,1],Y[,1],pch=16)
 
 
 
-
-
-
-
-
-
-
 ################
 .getRankRatio=function(X){
     R=(rank(X,ties='min')-1)/max(rank(X,ties='min')-1)
@@ -142,6 +135,84 @@ plot(X[,1],Y[,1],pch=16)
 
 RX=apply(X,2,.getRankRatio)
 RY=apply(Y,2,.getRankRatio)
+
+library(pcaPP)
+
+plot(RX[1,],RY[1,],xlim=c(0,1),ylim=c(0,1))
+RD=RY-RX
+
+i=1
+plot(RX[i,]+RY[i,], abs(RD[i,]))
+
+
+which(C<0.5)
+
+
+C=c()
+i=1
+while(i<=nrow(RD)){
+    this_c=cor.fk(RX[i,]+RY[i,], abs(RD[i,]))
+    C=c(C,this_c)
+    print(i)
+    i=i+1}
+
+
+
+
+
+    
+
+cor.fk(RX[1,],RY[1,])
+
+
+
+
+M=apply(RD,1,mean)
+S=apply(RD,1,sd)
+
+
+plot(S, M,pch=16)
+
+i=4
+plot(RX[i,],RY[i,],pch=16)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.getNN=function(X){
+    Y=qnorm(rank(X)/max(rank(X)))
+    return(Y)
+    }
+
+
+NS=.getNN(S)
+NM=.getNN(M)
+plot(NS,NM,pch=16)
+
+
+
+
+
+
+
+
+
+
+
 
 X=RX
 Y=RY
